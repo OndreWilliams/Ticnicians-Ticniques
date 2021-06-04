@@ -10,6 +10,18 @@ class User(db.Model, UserMixin):
   email = db.Column(db.String(255), nullable = False, unique = True)
   hashed_password = db.Column(db.String(255), nullable = False)
 
+  tradeplans = db.relationship("Tradeplan", back_populates="creator")
+
+  followers = db.relationship(
+        "User",
+        secondary=subscriptions,
+        primaryjoin=(subscriptions.follower_id == id),
+        secondaryjoin=(subscriptions.followed_id == id),
+        backref=db.backref("follows", lazy="dynamic"),
+        lazy="dynamic"
+  )
+
+  comments = db.relationship("Comment", back_populates="poster")
 
   @property
   def password(self):
@@ -29,5 +41,14 @@ class User(db.Model, UserMixin):
     return {
       "id": self.id,
       "username": self.username,
-      "email": self.email
+      "email": self.email,
+      "tradeplans": self.tradeplans,
+      "starred": self.starred_tradeplans,
+      "follows": self.follows
     }
+
+subscriptions = db.Table(
+    "subscriptions",
+    db.Column("follower_id", db.Integer, db.ForeignKey("users.id")),
+    db.Column("followed_id", db.Integer, db.ForeignKey("users.id"))
+)
