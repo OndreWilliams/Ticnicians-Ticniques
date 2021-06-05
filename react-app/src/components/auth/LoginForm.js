@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
+import "./auth.css";
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -13,6 +14,14 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
+    if (data.errors) {
+      setErrors(data.errors);
+    }
+  };
+
+  const onDemoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login("demo@aa.io", "password"));
     if (data.errors) {
       setErrors(data.errors);
     }
@@ -31,34 +40,43 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error) => (
-          <div>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type="submit">Login</button>
-      </div>
-    </form>
+    <div className="formPage">
+      <form onSubmit={onLogin} className="authForm loginForm">
+        <div className="form__header">Login</div>
+        <div>
+          {errors.map((error) => (
+            <div>{error}</div>
+          ))}
+        </div>
+        <div className="formField">
+          <label className="formLabel" htmlFor="email"></label>
+          <input
+            name="email"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={updateEmail}
+          />
+        </div>
+        <div className="formField">
+          <label className="formLabel" htmlFor="password"></label>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={updatePassword}
+          />
+
+        </div>
+        <div className="form__buttons-cntnr">
+          <button className="formButton" type="submit">Login</button>
+          <button onClick={onDemoLogin} className="formButton" >Demo</button>
+        </div>
+
+      </form>
+    </div>
+
   );
 };
 

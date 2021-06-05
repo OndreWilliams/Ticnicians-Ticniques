@@ -39,46 +39,53 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        <label>User Name</label>
-        <input
-          type="text"
-          name="username"
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type="password"
-          name="repeat_password"
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button type="submit">Sign Up</button>
-    </form>
+    <div className="formPage">
+      <form className="authForm signupForm" onSubmit={onSignUp}>
+        <div className="form__header">Sign up</div>
+        <div className="formField">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            onChange={updateUsername}
+            value={username}
+          ></input>
+        </div>
+        <div className="formField">
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            onChange={updateEmail}
+            value={email}
+          ></input>
+        </div>
+        <div className="formField">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={updatePassword}
+            value={password}
+          ></input>
+        </div>
+        <div className="formField">
+          <input
+            type="password"
+            name="repeat_password"
+            placeholder="Confirm Password"
+            onChange={updateRepeatPassword}
+            value={repeatPassword}
+            required={true}
+          ></input>
+        </div>
+        <div className="form__buttons-cntnr">
+          <button className="formButton" type="submit">Sign Up</button>
+          <button className="formButton" >Demo</button>
+        </div>
+      </form>
+    </div>
+
   );
 };
 
