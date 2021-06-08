@@ -8,15 +8,9 @@
 }
 
 .authForm {
-  display: grid;
-  margin: auto;
   margin-top: 20vh;
   padding: 20px;
   width: 350px;
-  height: auto;
-  background: rgb(62, 62, 62);
-  box-sizing: border-box;
-  border-radius: 5px;
   position: relative;
 }
 
@@ -28,52 +22,8 @@
   grid-template-rows: 2fr 2fr 2fr 2fr 2fr 1.5fr;
 }
 
-.form__header {
-  width: 100%;
-  font-size: 25px;
-  color: rgb(233, 233, 233);
-  text-align: center;
-  /* margin-bottom: 30px; */
-}
-
-.authForm .formField input {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  color:  rgb(233, 233, 233);
-  margin-bottom: 20px;
-  border: none;
-  border-bottom: 1px solid rgb(233, 233, 233);
-  outline: none;
-  background: transparent;
-}
-
-::placeholder {
-  color: rgb(233, 233, 233);
-  opacity: 1;
-}
-
-.formLabel {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.form__buttons-cntnr {
+.authForm__buttons-cntnr {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-bottom: 5px;
-}
-
-.formButton {
-  font-size: 16px;
-  font-weight: bold;
-  background-color: rgb(233, 233, 233);
-  border: none;
-  cursor: pointer;
-  width: 62%;
-  height: 70%;
-  opacity: 0.9;
-  border-radius: 3px;
-  justify-self: center;
-  align-self: end;
 }

@@ -40,7 +40,7 @@ const SignUpForm = () => {
 
   return (
     <div className="formPage">
-      <form className="authForm signupForm" onSubmit={onSignUp}>
+      <form className="authForm signupForm form" onSubmit={onSignUp}>
         <div className="form__header">Sign up</div>
         <div className="formField">
           <input
@@ -79,7 +79,7 @@ const SignUpForm = () => {
             required={true}
           ></input>
         </div>
-        <div className="form__buttons-cntnr">
+        <div className="authForm__buttons-cntnr">
           <button className="formButton" type="submit">Sign Up</button>
           <button className="formButton" >Demo</button>
         </div>

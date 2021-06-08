@@ -41,7 +41,7 @@ const LoginForm = () => {
 
   return (
     <div className="formPage">
-      <form onSubmit={onLogin} className="authForm loginForm">
+      <form onSubmit={onLogin} className="authForm loginForm form">
         <div className="form__header">Login</div>
         <div>
           {errors.map((error) => (
@@ -69,7 +69,7 @@ const LoginForm = () => {
           />
 
         </div>
-        <div className="form__buttons-cntnr">
+        <div className="authForm__buttons-cntnr">
           <button className="formButton" type="submit">Login</button>
           <button onClick={onDemoLogin} className="formButton" >Demo</button>
         </div>

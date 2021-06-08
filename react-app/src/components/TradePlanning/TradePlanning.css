@@ -1,0 +1,113 @@
+.tradeplanning__cntnr {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-around;
+  background-color: rgb(43, 53, 63);
+  height: 75vh;
+  padding: 50px 20px;
+}
+
+.tradeplanning__chart {
+  width: 70vw;
+  height: 100%;
+  background-color: rgb(20, 28, 36);
+  border: 1px solid rgba(28, 116, 212, .5);
+  justify-self: center;
+  align-self: center;
+}
+
+.tradeplanning__form-cntnr {
+  border: 1px solid rgba(28, 116, 212, .5);
+  width: 25vw;
+  height: 75vh;
+  justify-self: center;
+  align-self: center;
+
+}
+
+.tradeplanning__form {
+  grid-template-rows: 1fr 1fr 1fr 3fr 1fr .6fr
+}
+
+.tradeplanning__form--textarea {
+  background-color: rgb(19, 22, 29);
+  color: rgb(173, 175, 190);
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.publishing_cntnr {
+  color:rgb(173, 175, 190);
+  font-family: Arial, Helvetica, sans-serif;
+  display: block;
+  position: relative;
+  padding-left: 27px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.publishing_cntnr input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  border: 1px solid rgba(77, 77, 110, .5);
+  border-radius: 3px;
+}
+
+.publishing_cntnr:hover input ~ .check {
+  background-color: rgba(28, 116, 212, .6);
+}
+
+.publishing_cntnr input:checked ~ .check {
+  background-color: rgb(5, 108, 218);
+}
+
+.check:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.publishing_cntnr input:checked ~ .check:after {
+  display: block;
+}
+
+.publishing_cntnr .check:after {
+  left: 4px;
+  top: 3px;
+  width: 3px;
+  height: 5px;
+  border: solid rgb(210, 212, 230);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.tradeplanning__form--submit {
+  width: 38%;
+  height: 80%;
+  margin: auto;
+  font-size: 24px;
+  /* font-weight: bold; */
+  border: 1px solid rgba(77, 77, 110, .5);
+  border-radius: 5px;
+  background-color: rgb(26, 30, 39);
+  color:rgb(33, 139, 252);
+}

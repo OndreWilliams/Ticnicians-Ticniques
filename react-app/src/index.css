@@ -3,3 +3,73 @@
   margin: 0;
   padding: 0;
 }
+
+.form {
+  display: grid;
+  margin: auto;
+  padding: 20px;
+  height: auto;
+  background: rgb(19, 22, 29);
+  box-sizing: border-box;
+  border-radius: 5px;
+  position: relative;
+}
+
+.form__header {
+  width: 100%;
+  font-size: 25px;
+  color: rgb(175, 178, 192);
+  text-align: center;
+  /* margin-bottom: 30px; */
+}
+
+.form .formField input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color:  rgb(173, 175, 190);
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid rgb(121, 122, 130);
+  outline: none;
+  background: transparent;
+}
+
+.form textarea,
+.form__radio--cntnr {
+  margin-bottom: 20px;
+}
+
+.form textarea {
+  border-radius: 4px;
+}
+.form textarea:focus {
+  outline: none !important;
+  border: 1px solid rgb(121, 122, 130);
+}
+
+::placeholder {
+  color: rgb(173, 175, 190);
+  opacity: 1;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.formLabel {
+  font-size: 16px;
+  color: rgb(121, 122, 130);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.formButton {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: rgb(233, 233, 233);
+  border: none;
+  cursor: pointer;
+  width: 62%;
+  height: 70%;
+  opacity: 0.9;
+  border-radius: 3px;
+  justify-self: center;
+  align-self: end;
+}

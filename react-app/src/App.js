@@ -7,6 +7,7 @@ import NavBar from "./components/navbar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
+import TradePlanning from "./components/TradePlanning";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} >
-          <h1>My Home Page</h1>
+          <TradePlanning/>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

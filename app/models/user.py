@@ -51,5 +51,6 @@ class User(db.Model, UserMixin):
       "email": self.email,
       "tradeplans": self.tradeplans,
       "starred": self.starred_tradeplans,
-      "follows": self.follows
+      # "follows": self.follows,
+      "comments": self.comments
     }
