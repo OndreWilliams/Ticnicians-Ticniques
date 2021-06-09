@@ -1,21 +1,43 @@
 const CREATE_TP = "tradeplan/CREATE_TP";
+const DELETE_TP = "tradeplan/DELETE_TP";
+const LOAD = 'tradeplan/LOAD';
+
+const load = list => ({
+  type: LOAD,
+  list,
+});
 
 const createTP = (tradeplan) => ({
   type: CREATE_TP,
-  payload: tradeplan
+  tradeplan
 });
 
-export const createTradeplan = (title, imageUrl, description, makePublic) => async (dispatch) => {
+const deleteTP = (id) => ({
+  type: DELETE_TP,
+  id
+});
+
+export const getAllTradeplans = () => async (dispatch) => {
+  const response = await fetch("/api/tradeplan/all");
+  if (response.ok) {
+    const data = await response.json();
+    const list = data.tradeplans;
+    dispatch(load(list));
+  }
+};
+
+export const createTradeplan = (instrumentId, title, imageUrl, description, makePublic) => async (dispatch) => {
   const response = await fetch('/api/tradeplan', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      instrument_id: instrumentId,
       title,
-      imageUrl,
+      image: imageUrl,
       description,
-      makePublic
+      public: makePublic
     })
   });
   const data = await response.json();
@@ -27,17 +49,54 @@ export const createTradeplan = (title, imageUrl, description, makePublic) => asy
   return {};
 };
 
-const initialState = { tradeplans: null };
+export const deleteTradeplan = (id) => async (dispatch) => {
+  const response = await fetch(`/api/tradeplan/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id
+    })
+  });
+  const data = await response.json();
+  if (data.errors) {
+      return data;
+  }
 
-export default function tradeplanReducer(state=initialState, {type, payload}) {
-  switch (type) {
+  dispatch(deleteTP(id))
+  return {};
+};
+
+const initialState = { list: [] };
+
+export default function tradeplanReducer(state=initialState, action) {
+  switch (action.type) {
+    case LOAD:
+      const allTradeplans = {};
+      action.list.forEach(tradeplan => {
+        allTradeplans[tradeplan.id] = tradeplan;
+      });
+      return {
+        ...allTradeplans,
+        list: [...action.list]
+
+      }
+
     case CREATE_TP:
       return {
         ...state,
-        tradeplans: {
-          ...state.tradeplans,
-          payload,
-        }
+        [action.tradeplan.id]: action.tradeplan,
+        list: [...state.list, action.tradeplan]
+      }
+
+    case DELETE_TP:
+      let newTradeplans = { ...state };
+      delete newTradeplans[action.id];
+      return {
+        ...state,
+        tradeplans: newTradeplans,
+        list: [...state.list.filter(tradeplan => tradeplan.id !== action.id)]
       }
 
     default:

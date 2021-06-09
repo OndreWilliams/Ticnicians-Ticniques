@@ -27,3 +27,14 @@ class Tradeplan(db.Model):
   instrument = db.relationship("Instrument", back_populates="tradeplans")
 
   follower = db.relationship("User", backref="starred_tradeplans", secondary="starred")
+
+  def to_dict(self):
+    return {
+      "id": self.id,
+      "creator_id": self.creator_id,
+      "instrument_id": self.instrument_id,
+      "title": self.title,
+      "description": self.description,
+      "image": self.image,
+      "public": self.public
+    }

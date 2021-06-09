@@ -19,7 +19,7 @@
 }
 
 .signupForm {
-  grid-template-rows: 2fr 2fr 2fr 2fr 2fr 1.5fr;
+  grid-template-rows: 1fr 3fr 2fr 2fr 2fr 2fr 1.5fr;
 }
 
 .authForm__buttons-cntnr {

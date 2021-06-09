@@ -22,11 +22,22 @@
   height: 75vh;
   justify-self: center;
   align-self: center;
-
 }
 
 .tradeplanning__form {
-  grid-template-rows: 1fr 1fr 1fr 3fr 1fr .6fr
+  grid-template-rows: .4fr 2fr .6fr 1fr 1fr 3fr 1fr .6fr;
+  height: 100%;
+  border-radius: 0px;
+}
+
+.tradeplanning__form--select {
+  background-color: rgb(19, 22, 29);
+  color: rgb(173, 175, 190);
+  font-size: 15px;
+  margin-left: 0px;
+  padding: 5px;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 .tradeplanning__form--textarea {
@@ -110,4 +121,9 @@
   border-radius: 5px;
   background-color: rgb(26, 30, 39);
   color:rgb(33, 139, 252);
+  box-shadow: 0px 0px 3px rgba(38, 130, 235, 0.7);
+}
+
+.tradeplanning__form--submit:hover {
+  border-color: rgba(28, 116, 212, .6);
 }

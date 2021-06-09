@@ -43,14 +43,22 @@ class User(db.Model, UserMixin):
   def check_password(self, password):
     return check_password_hash(self.password, password)
 
+  def simple_to_dict(self):
+    return{
+      "id": self.id,
+      "username": self.username,
+      "email": self.email,
+      "tradeplans": self.tradeplans
+    }
+
 
   def to_dict(self):
     return {
       "id": self.id,
       "username": self.username,
       "email": self.email,
-      "tradeplans": self.tradeplans,
+      "tradeplans": [tradeplan.to_dict() for tradeplan in self.tradeplans],
       "starred": self.starred_tradeplans,
-      # "follows": self.follows,
-      "comments": self.comments
+      "follows": [user.simple_to_dict() for user in self.follows],
+      "comments": [comment.to_dict() for comment in self.comments]
     }

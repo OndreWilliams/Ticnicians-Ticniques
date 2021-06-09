@@ -22,3 +22,11 @@
   text-decoration: none;
   color: lightblue;
 }
+.home__li {
+  align-self: center;
+  margin-top: 2px;
+}
+.home {
+  height: 55px;
+  margin-left: 20px;
+}

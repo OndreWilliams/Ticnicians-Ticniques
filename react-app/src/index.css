@@ -33,6 +33,7 @@
   border-bottom: 1px solid rgb(121, 122, 130);
   outline: none;
   background: transparent;
+
 }
 
 .form textarea,
@@ -43,7 +44,9 @@
 .form textarea {
   border-radius: 4px;
 }
-.form textarea:focus {
+
+.form textarea:focus,
+.form select:focus {
   outline: none !important;
   border: 1px solid rgb(121, 122, 130);
 }
@@ -72,4 +75,14 @@
   border-radius: 3px;
   justify-self: center;
   align-self: end;
+}
+
+.form__errors-cntnr{
+  align-self: center;
+  justify-self: center;
+}
+
+.error {
+  color: rgba(236, 84, 84, 0.8);
+  font-size: 16px;
 }

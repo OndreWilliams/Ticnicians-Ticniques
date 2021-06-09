@@ -2,14 +2,20 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import "./NavBar.css";
-
+import chart from "./chart.png"
+//
 const NavBar = () => {
   return (
     <nav className="nav">
       <ul className="nav__ul">
-        <li className="nav__li">
+        <li className="nav__li home__li">
           <NavLink to="/" exact={true} className="nav__link nav__home" activeClassName="active">
-            Ticnicians' Ticniques
+            <img src={chart} alt="logo" className="home" />
+          </NavLink>
+        </li>
+        <li className="nav__li feed__li">
+          <NavLink to="/users/:userId" exact={true} className="nav__link nav__feed" activeClassName="active">
+            Feed
           </NavLink>
         </li>
         <li className="nav__li nav__login">

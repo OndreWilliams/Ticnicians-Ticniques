@@ -43,9 +43,9 @@ const LoginForm = () => {
     <div className="formPage">
       <form onSubmit={onLogin} className="authForm loginForm form">
         <div className="form__header">Login</div>
-        <div>
+        <div className="form__errors-cntnr">
           {errors.map((error) => (
-            <div>{error}</div>
+            <div className="error">{error}</div>
           ))}
         </div>
         <div className="formField">

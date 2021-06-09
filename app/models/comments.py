@@ -11,3 +11,12 @@ class Comment(db.Model):
   poster = db.relationship("User", back_populates="comments")
 
   instrument = db.relationship("Instrument", back_populates="comments")
+
+
+  def to_dict(self):
+    return {
+      "id": self.id,
+      "poster_id": self.poster_id,
+      "instrument_id": self.instrument_id,
+      "comment": self.comment
+    }

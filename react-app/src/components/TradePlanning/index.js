@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
-import { createTradeplan } from "../../store/tradeplan";
+import { createTradeplan, getAllTradeplans } from "../../store/tradeplan";
 import "./TradePlanning.css";
 
 const TradePlanning = () => {
   const [errors, setErrors] = useState([]);
+  const [instrumentId, setInstrumentId] = useState(0);
   const [title, setTitle] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
   const [makePublic, setMakePublic] = useState(true);
-
+  const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    dispatch(getAllTradeplans());
+  }, [dispatch]);
+
+  const updateInstrumentId = (e) => {
+    setInstrumentId(e.target.value);
+  };
 
   const updateTitle = (e) => {
     setTitle(e.target.value);
@@ -26,15 +37,20 @@ const TradePlanning = () => {
   };
 
   const updateMakePublic = () => {
+
     setMakePublic(!makePublic);
+
   }
 
   const onSaveTradeplan = async (e) => {
     e.preventDefault();
-    const data = await dispatch(createTradeplan(title, imageUrl, description, makePublic));
+    const data = await dispatch(createTradeplan(instrumentId, title, imageUrl, description, makePublic));
     if (data.errors) {
       setErrors(data.errors);
+    } else {
+      history.push(`/users/${user.id}`)
     }
+
   };
 
   return (
@@ -50,22 +66,41 @@ const TradePlanning = () => {
         />
       </div>
       <div className="tradeplanning__form-cntnr">
-        <form onSubmit={onSaveTradeplan} action="/api/tradeplan" className="tradeplanning__form form">
+        <form onSubmit={onSaveTradeplan} action="" method="POST" className="tradeplanning__form form">
           <div className="form__header">Create a Trading Plan</div>
+          <div className="form__errors-cntnr tradeplanning__errors">
+            {errors.map((error) => (
+              <div className="error">{error}</div>
+            ))}
+          </div>
+          <div className="formField">
+            <select className="tradeplanning__form--select" value={instrumentId} onChange={updateInstrumentId} >
+              <option disabled={true} value={0}>Select an Instrument</option>
+              <option value={1}>USD/JPY</option>
+              <option value={2}>USD/CHF</option>
+              <option value={3}>USD/CAD</option>
+              <option value={4}>EUR/USD</option>
+              <option value={5}>GBP/USD</option>
+              <option value={6}>AUD/USD</option>
+              <option value={6}>NZD/USD</option>
+            </select>
+          </div>
           <div className="formField">
             <input
               name="title"
               type="text"
               placeholder="Title"
+              autoComplete="off"
               value={title}
               onChange={updateTitle}
             />
           </div>
           <div className="formField">
             <input
-              name="imageUrl"
+              name="image"
               type="text"
               placeholder="Image URL"
+              autoComplete="off"
               value={imageUrl}
               onChange={updateImageUrl}
             />
@@ -78,7 +113,7 @@ const TradePlanning = () => {
               value={description}
               onChange={updateDescription}
               cols="30"
-              rows="15"
+              rows="12"
             >
             </textarea>
           </div>

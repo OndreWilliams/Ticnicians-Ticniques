@@ -1,0 +1,81 @@
+.feed__container {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-around;
+  background-color: rgb(43, 53, 63);
+  height: 75vh;
+  padding: 50px 20px;
+}
+
+.feed__tradeplans {
+  display: grid;
+  grid-template-rows: auto;
+  background: rgb(19, 22, 29);
+  border: 1px solid rgba(28, 116, 212, .5);
+  padding: 20px;
+  overflow: scroll;
+}
+
+.feed__tradeplans::-webkit-scrollbar {
+  display: none;
+}
+
+.feed__tradeplans {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.feed__tradeplan-container {
+  background: rgb(44, 48, 56);
+  /* border-bottom: 1px solid rgba(28, 116, 212, .5); */
+  border-radius: 4px;
+  width: 25vw;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.tradeplan__title {
+  /* background: rgb(19, 22, 29); */
+
+  color: rgb(173, 175, 190);
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.feed__img {
+  width: 100%;
+  height: 200px;
+}
+
+.tradeplan__chart-buttons-cntnr {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  /* margin-bottom: 10px; */
+}
+
+.tradeplan__buttons-cntnr {
+  display: grid;
+  grid-template-rows: auto auto;
+  align-items: center;
+  justify-items: end;
+}
+
+.tradeplan__button {
+  width: 80%;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.tradeplan__view {
+  background-color: rgb(29, 125, 228);
+}
+
+.tradeplan__delete {
+  background-color: rgb(182, 69, 69);
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+}

@@ -6,6 +6,6 @@ class TradeplanForm(FlaskForm):
   creator_id = IntegerField('creator_id', validators=[DataRequired()])
   instrument_id = IntegerField('instrument_id', validators=[DataRequired()])
   title = StringField('title', validators=[DataRequired()])
-  description = TextAreaField('description', validators=[DataRequired()])
+  description = StringField('description', validators=[DataRequired()])
   image = StringField('image', validators=[DataRequired()])
-  public = BooleanField('public', validators=[DataRequired()])
+  public = BooleanField('public')
