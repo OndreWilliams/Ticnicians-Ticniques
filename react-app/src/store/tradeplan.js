@@ -84,6 +84,7 @@ export default function tradeplanReducer(state=initialState, action) {
       }
 
     case CREATE_TP:
+      console.log(state);
       return {
         ...state,
         [action.tradeplan.id]: action.tradeplan,
@@ -94,8 +95,7 @@ export default function tradeplanReducer(state=initialState, action) {
       let newTradeplans = { ...state };
       delete newTradeplans[action.id];
       return {
-        ...state,
-        tradeplans: newTradeplans,
+        ...newTradeplans,
         list: [...state.list.filter(tradeplan => tradeplan.id !== action.id)]
       }
 

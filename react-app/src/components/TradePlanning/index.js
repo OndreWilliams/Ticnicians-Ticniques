@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import { createTradeplan, getAllTradeplans } from "../../store/tradeplan";
+import { getSelf } from "../../store/session";
 import "./TradePlanning.css";
 
 const TradePlanning = () => {
@@ -45,6 +46,7 @@ const TradePlanning = () => {
   const onSaveTradeplan = async (e) => {
     e.preventDefault();
     const data = await dispatch(createTradeplan(instrumentId, title, imageUrl, description, makePublic));
+    await dispatch(getSelf());
     if (data.errors) {
       setErrors(data.errors);
     } else {

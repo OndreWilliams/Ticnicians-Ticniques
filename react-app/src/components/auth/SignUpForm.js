@@ -14,11 +14,15 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
+
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password));
       if (data.errors) {
         setErrors(data.errors);
       }
+    }
+    else {
+      setErrors(["Passwords must match"]);
     }
   };
 
@@ -85,7 +89,6 @@ const SignUpForm = () => {
             placeholder="Confirm Password"
             onChange={updateRepeatPassword}
             value={repeatPassword}
-            required={true}
           ></input>
         </div>
         <div className="authForm__buttons-cntnr">

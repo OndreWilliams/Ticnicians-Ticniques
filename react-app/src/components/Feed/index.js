@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from 'react-router-dom';
 import { deleteTradeplan } from "../../store/tradeplan";
+import { getSelf } from "../../store/session";
 import "./Feed.css";
 
 const Feed = () => {
   const dispatch = useDispatch();
-
   const user = useSelector(state => state.session.user);
-  const allTradeplans = useSelector(state => state.tradeplans.list)
-  const [displayTradeplans, setDisplayTradeplans] = useState(allTradeplans);
+  const userTradeplans = user.tradeplans;
+  const [displayTradeplans, setDisplayTradeplans] = useState(userTradeplans);
   const history = useHistory();
 
   const compare = (a, b) => {
@@ -23,11 +23,14 @@ const Feed = () => {
     }
   }
   useEffect(() => {
-    setDisplayTradeplans(allTradeplans
-      .filter(tradeplan => tradeplan.creator_id === user.id)
+    dispatch(getSelf());
+  }, [dispatch])
+
+  useEffect(() => {
+    setDisplayTradeplans(userTradeplans
       .sort(compare)
     );
-  }, [dispatch, allTradeplans])
+  }, [dispatch])
 
   if (!user) {
     return <Redirect to="/login" />;
@@ -37,8 +40,10 @@ const Feed = () => {
     history.push(`/tradeplans/${id}`)
   };
 
-  const onDeleteTP = (id) => {
-    dispatch(deleteTradeplan(id));
+  const onDeleteTP = async (id) => {
+    await dispatch(deleteTradeplan(id));
+    await dispatch(getSelf());
+    setDisplayTradeplans(displayTradeplans.filter(tradeplan => tradeplan.id !== id));
   };
 
   return (
