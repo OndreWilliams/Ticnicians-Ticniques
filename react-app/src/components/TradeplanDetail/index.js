@@ -3,19 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import { editTradeplan, getOneTradeplan } from "../../store/tradeplan";
+import chartSymbol from "./chartSymbol";
 import { getSelf } from "../../store/session";
 import "../TradePlanning/TradePlanning.css";
 
 const TradeplanDetail = () => {
   const [errors, setErrors] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [instrumentId, setInstrumentId] = useState("tradeplan.instrument_id");
-  const [title, setTitle] = useState("tradeplan.title");
-  const [imageUrl, setImageUrl] = useState("tradeplan.image");
-  const [description, setDescription] = useState("tradeplan.description");
-  const [makePublic, setMakePublic] = useState("tradeplan.public");
+  const [instrumentId, setInstrumentId] = useState(0);
+  const [title, setTitle] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [description, setDescription] = useState("");
+  const [makePublic, setMakePublic] = useState(true);
   const [newChart, setNewChart] = useState(false);
-
+  const [chartCode, setChartCode] = useState("EURUSD");
   const { planId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -24,11 +25,14 @@ const TradeplanDetail = () => {
     dispatch(getOneTradeplan(planId));
   }, [dispatch, planId]);
 
-  const tradeplans = useSelector((state) => state.tradeplans);
-  const tradeplan = tradeplans[planId];
+  useEffect(() => {
+    setChartCode(chartSymbol(instrumentId));
+    console.log("(((((((((((((((((((((((((((")
+    console.log(instrumentId);
+  }, [instrumentId]);
 
+  const tradeplan = useSelector((state) => state.tradeplans[planId]);
   const user = useSelector(state => state.session.user);
-
 
   if(!tradeplan) {
     return null;
@@ -43,8 +47,9 @@ const TradeplanDetail = () => {
     }
   }
 
+
   const updateInstrumentId = (e) => {
-    setInstrumentId(e.target.value);
+    setInstrumentId(Number(e.target.value));
   };
 
   const updateTitle = (e) => {
@@ -109,7 +114,7 @@ const TradeplanDetail = () => {
       <div className="tradeplanning__cntnr detail__cntnr">
         <div id="chart__div" className="tradeplanning__chart toggle-chart">
           <TradingViewWidget
-            symbol="EURUSD"
+            symbol={chartCode}
             interval="1"
             theme={Themes.DARK}
             autosize
@@ -137,7 +142,7 @@ const TradeplanDetail = () => {
                 <option value={4}>EUR/USD</option>
                 <option value={5}>GBP/USD</option>
                 <option value={6}>AUD/USD</option>
-                <option value={6}>NZD/USD</option>
+                <option value={7}>NZD/USD</option>
               </select>
             </div>
             <div className="formField">

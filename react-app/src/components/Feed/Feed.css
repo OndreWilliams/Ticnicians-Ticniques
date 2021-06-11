@@ -13,10 +13,23 @@
   background: rgb(19, 22, 29);
   border: 1px solid rgba(28, 116, 212, .5);
   padding: 20px;
+  padding-top: 0px;
   overflow: scroll;
   width: 40vw;
   box-sizing: border-box;
   align-content: start;
+}
+
+.feed__title {
+  text-align: center;
+  font-size: 24px;
+  color:rgb(173, 175, 190);
+  padding: 7px;
+}
+
+.feed__bottom-margin-fix {
+  background: rgb(19, 22, 29);
+  height: 10px;
 }
 
 .feed__tradeplans::-webkit-scrollbar {

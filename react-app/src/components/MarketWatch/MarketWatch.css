@@ -1,0 +1,14 @@
+
+.market-watch__charts {
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  align-items: center;
+}
+
+.dollar-base {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-items: center;
+  align-items: center;
+}

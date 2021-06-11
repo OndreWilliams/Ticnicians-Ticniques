@@ -11,6 +11,7 @@ import TradePlanning from "./components/TradePlanning";
 import TradeplanDetail from "./components/TradeplanDetail";
 import Feed from "./components/Feed";
 import { authenticate } from "./store/session";
+import MarketWatch from "./components/MarketWatch";
 
 function App() {
   const user = useSelector(state => state.session.user)
@@ -42,7 +43,7 @@ function App() {
           <UsersList/>
         </ProtectedRoute> */}
         <ProtectedRoute path="/users/:userId" exact={true} >
-          <Feed/>
+          <MarketWatch/>
         </ProtectedRoute>
         <ProtectedRoute path="/tradeplans/:planId" exact={true} >
           <TradeplanDetail/>
