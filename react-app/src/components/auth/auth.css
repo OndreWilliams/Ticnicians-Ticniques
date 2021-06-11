@@ -27,3 +27,22 @@
   grid-template-columns: 1fr 1fr;
   padding-bottom: 5px;
 }
+
+.nav__logout {
+  text-decoration: none;
+  padding: 5px 8px;
+  width: auto;
+  height: 80%;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 18px;
+  border: 1px solid rgba(77, 77, 110, .5);
+  border-radius: 5px;
+  background-color: rgb(26, 30, 39);
+  color:rgb(33, 139, 252);
+  box-shadow: 0px 0px 3px rgba(38, 130, 235, 0.7);
+}
+
+.nav__logout:hover {
+  border-color: rgba(28, 116, 212, .6);
+}

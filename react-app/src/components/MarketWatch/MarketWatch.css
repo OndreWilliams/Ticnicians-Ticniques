@@ -1,14 +1,47 @@
+.market-watch {
+  background-color: rgb(43, 53, 63);
+  padding: 50px 20px;
+}
+
+.market-watch__cntnr {
+  display: grid;
+  grid-template-columns: auto auto;
+
+}
 
 .market-watch__charts {
   display: grid;
   grid-template-rows: auto auto;
+  width: 100%;
   justify-items: center;
   align-items: center;
 }
 
+.marketwatch__chart {
+  border: 1px solid rgba(28, 116, 212, .5);
+}
 .dollar-base {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 10px;
   justify-items: center;
   align-items: center;
+}
+
+.market-watch__chat {
+  border: 1px solid rgba(28, 116, 212, .5);
+  background-color: rgb(19, 22, 29);
+  color: rgb(173, 175, 190);
+  width: 25vw;
+  height: 75vh;
+  justify-self: center;
+  align-self: center;
+}
+
+.market-watch__chat--title {
+  text-align: center;
+  font-size: 24px;
+  color:rgb(173, 175, 190);
+  padding: 7px;
 }

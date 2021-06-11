@@ -2,10 +2,13 @@ import {createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
 import tradeplans from "./tradeplan";
+import comments from "./comments";
 
 const rootReducer = combineReducers({
     session,
     tradeplans,
+    comments,
+
 });
 
 

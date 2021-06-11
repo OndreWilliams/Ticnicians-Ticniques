@@ -47,13 +47,13 @@ const NavBar = () => {
         {user && [user].map((user) => {
           return(
             <li className="nav__welcome">
-              Welcome back {user.username}
+              Welcome back, {user.username}
             </li>
           )
         })}
         {user && [user].map((user) => {
           return(
-            <li className="nav__li nav__logout">
+            <li className="nav__li nav__logoutButton">
               <LogoutButton />
             </li>
           )

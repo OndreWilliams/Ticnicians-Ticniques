@@ -112,7 +112,6 @@ export default function tradeplanReducer(state=initialState, action) {
         ...state,
         ...allTradeplans,
         list: [...action.list]
-
       }
 
     case CREATE_TP:

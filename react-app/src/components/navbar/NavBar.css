@@ -23,13 +23,7 @@
   margin-bottom: auto;
 }
 
-.nav__link {
-  text-decoration: none;
-  color: rgb(173, 175, 190);
-  font-size: 20px;
-  border: 1px solid rgba(28, 116, 212, .5);
-  padding: 5px 8px;
-}
+
 
 
 .home__li {
@@ -43,12 +37,13 @@
 }
 
 .nav__link {
+  text-decoration: none;
+  padding: 5px 8px;
   width: auto;
   height: 80%;
   margin-top: auto;
   margin-bottom: auto;
   font-size: 24px;
-  /* font-weight: bold; */
   border: 1px solid rgba(77, 77, 110, .5);
   border-radius: 5px;
   background-color: rgb(26, 30, 39);
@@ -68,7 +63,7 @@
   justify-self: end;
 }
 
-.nav__logout {
+.nav__logoutButton {
   justify-self: center;
   grid-column-start: 6;
 }
