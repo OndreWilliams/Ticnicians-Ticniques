@@ -1,6 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const REMOVE_USER_TP = "session/REMOVE_USER_TP"
 
 const setUser = (user) => ({
     type: SET_USER,
@@ -9,9 +10,18 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
     type: REMOVE_USER,
-})
+});
+
+const removeUserTradeplan = (id) => ({
+  type: REMOVE_USER_TP,
+  id
+});
 
 const initialState = { user: null };
+
+export const removeUserTP = (id) => (dispatch) => {
+  dispatch(removeUserTradeplan(id));
+};
 
 export const getSelf = () => async (dispatch) => {
   const response = await fetch('/api/users/me',{
@@ -97,9 +107,27 @@ export const authenticate = () => async (dispatch) => {
 export default function reducer(state=initialState, action) {
     switch (action.type) {
         case SET_USER:
-            return {user: action.payload}
+            return {
+              ...state,
+              user: action.payload
+            }
         case REMOVE_USER:
-            return {user: null}
+            return {
+              ...state,
+              user: null
+            }
+
+        case REMOVE_USER_TP:
+            let tempUser = {...state.user};
+            delete tempUser.tradeplans[Number(action.id)];
+            console.log("************************")
+            console.log(tempUser)
+            console.log("************************")
+
+          return {
+            ...state,
+            user: {...tempUser}
+          }
         default:
             return state;
     }

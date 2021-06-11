@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from 'react-router-dom';
 import { deleteTradeplan } from "../../store/tradeplan";
+import { removeUserTP } from "../../store/session";
 import { getSelf } from "../../store/session";
 import "./Feed.css";
 
 const Feed = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
-  const userTradeplans = user.tradeplans;
+  const userTradeplans = useSelector(state => state.session.user.tradeplans);
   const [displayTradeplans, setDisplayTradeplans] = useState(userTradeplans);
+  const [isDeleting, setIsDeleting] = useState(false);
   const history = useHistory();
 
   const compare = (a, b) => {
@@ -23,14 +25,15 @@ const Feed = () => {
     }
   }
   useEffect(() => {
+
     dispatch(getSelf());
-  }, [dispatch])
+  }, [dispatch, isDeleting])
 
   useEffect(() => {
     setDisplayTradeplans(userTradeplans
       .sort(compare)
     );
-  }, [dispatch])
+  }, [dispatch, user])
 
   if (!user) {
     return <Redirect to="/login" />;
@@ -40,10 +43,11 @@ const Feed = () => {
     history.push(`/tradeplans/${id}`)
   };
 
-  const onDeleteTP = async (id) => {
-    await dispatch(deleteTradeplan(id));
-    await dispatch(getSelf());
-    setDisplayTradeplans(displayTradeplans.filter(tradeplan => tradeplan.id !== id));
+  const onDeleteTP =  (id) => {
+    setIsDeleting(!isDeleting);
+    dispatch(deleteTradeplan(id));
+    dispatch(removeUserTP(id));
+    dispatch(getSelf());
   };
 
   return (
@@ -60,7 +64,7 @@ const Feed = () => {
                   <button onClick={() => onViewEditTP(tradeplan.id)} className="tradeplan__button tradeplan__view">View/Edit
 
                   </button>
-                  <button onClick={() => onDeleteTP(tradeplan.id)} className="tradeplan__button tradeplan__delete">Delete
+                  <button onClick={(e) => onDeleteTP(tradeplan.id)} className="tradeplan__button tradeplan__delete">Delete
 
                   </button>
                 </div>

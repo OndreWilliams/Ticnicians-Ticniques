@@ -44,6 +44,14 @@ def create_tradeplan():
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
   return {'errors': ['Unauthorized']}
 
+@tradeplan_routes.route('/<id>')
+def get_a_tradeplan(id):
+  if current_user.is_authenticated:
+      tradeplan = Tradeplan.query.get(id)
+      if (tradeplan):
+        return tradeplan.to_dict()
+  return Response("You must be logged in", 401)
+
 @tradeplan_routes.route('/<id>', methods=['DELETE'])
 def deleteTradeplan(id):
   if current_user.is_authenticated:
@@ -63,6 +71,7 @@ def modify_tradeplan(id):
     if current_user.is_authenticated:
         tradeplan = Tradeplan.query.get(id)
         tradeplan_creator = str(tradeplan.creator_id)
+        form['creator_id'].data = tradeplan_creator
         if current_user.get_id() == tradeplan_creator:
             if form.validate_on_submit():
                 tradeplan.instrument_id = form.data['instrument_id']

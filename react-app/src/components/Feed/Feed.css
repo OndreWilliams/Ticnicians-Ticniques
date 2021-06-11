@@ -14,6 +14,9 @@
   border: 1px solid rgba(28, 116, 212, .5);
   padding: 20px;
   overflow: scroll;
+  width: 40vw;
+  box-sizing: border-box;
+  align-content: start;
 }
 
 .feed__tradeplans::-webkit-scrollbar {
@@ -29,10 +32,12 @@
   background: rgb(44, 48, 56);
   /* border-bottom: 1px solid rgba(28, 116, 212, .5); */
   border-radius: 4px;
-  width: 25vw;
+  width: auto;
   margin-bottom: 10px;
   padding: 10px;
+  max-height: 240px;
 }
+
 
 .tradeplan__title {
   /* background: rgb(19, 22, 29); */

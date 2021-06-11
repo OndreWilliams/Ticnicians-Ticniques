@@ -50,6 +50,7 @@ const TradePlanning = () => {
     if (data.errors) {
       setErrors(data.errors);
     } else {
+
       history.push(`/users/${user.id}`)
     }
 

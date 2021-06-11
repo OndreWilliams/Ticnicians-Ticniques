@@ -17,6 +17,14 @@ const deleteTP = (id) => ({
   id
 });
 
+export const getOneTradeplan = (id) => async (dispatch) => {
+  const response = await fetch(`/api/tradeplan/${id}`);
+  if (response.ok){
+    const data = await response.json();
+    dispatch(load([data]));
+  }
+};
+
 export const getAllTradeplans = () => async (dispatch) => {
   const response = await fetch("/api/tradeplan/all");
   if (response.ok) {
@@ -29,6 +37,29 @@ export const getAllTradeplans = () => async (dispatch) => {
 export const createTradeplan = (instrumentId, title, imageUrl, description, makePublic) => async (dispatch) => {
   const response = await fetch('/api/tradeplan', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      instrument_id: instrumentId,
+      title,
+      image: imageUrl,
+      description,
+      public: makePublic
+    })
+  });
+  const data = await response.json();
+  if (data.errors) {
+      return data;
+  }
+
+  dispatch(createTP(data))
+  return {};
+};
+
+export const editTradeplan = (id, instrumentId, title, imageUrl, description, makePublic) => async (dispatch) => {
+  const response = await fetch(`/api/tradeplan/${id}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -78,13 +109,13 @@ export default function tradeplanReducer(state=initialState, action) {
         allTradeplans[tradeplan.id] = tradeplan;
       });
       return {
+        ...state,
         ...allTradeplans,
         list: [...action.list]
 
       }
 
     case CREATE_TP:
-      console.log(state);
       return {
         ...state,
         [action.tradeplan.id]: action.tradeplan,
