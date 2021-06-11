@@ -27,8 +27,6 @@ const TradeplanDetail = () => {
 
   useEffect(() => {
     setChartCode(chartSymbol(instrumentId));
-    console.log("(((((((((((((((((((((((((((")
-    console.log(instrumentId);
   }, [instrumentId]);
 
   const tradeplan = useSelector((state) => state.tradeplans[planId]);

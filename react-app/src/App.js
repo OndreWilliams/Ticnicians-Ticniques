@@ -39,17 +39,17 @@ function App() {
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
-        {/* <ProtectedRoute path="/users" exact={true} >
-          <UsersList/>
-        </ProtectedRoute> */}
+        <ProtectedRoute path="/tradeplan" exact={true} >
+          <TradePlanning/>
+        </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true} >
-          <MarketWatch/>
+          <Feed/>
         </ProtectedRoute>
         <ProtectedRoute path="/tradeplans/:planId" exact={true} >
           <TradeplanDetail/>
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} >
-          <TradePlanning/>
+          <MarketWatch/>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

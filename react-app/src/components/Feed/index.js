@@ -55,7 +55,6 @@ const Feed = () => {
       <div className="feed__tradeplans">
         <div className="feed__title">Trade Book</div>
         {displayTradeplans && displayTradeplans.map((tradeplan) => {
-          // return JSON.stringify(tradeplan)
           return (
             <div className="feed__tradeplan-container">
               <div className="tradeplan__title">{tradeplan.title}</div>
