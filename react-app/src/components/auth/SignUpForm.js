@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { Redirect } from 'react-router-dom';
-import { signUp } from '../../store/session';
+import { signUp, login } from '../../store/session';
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -14,15 +14,32 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
+    const tempErrors = [];
+    if (username.length < 3)
+      tempErrors.push("Enter a username of at least 3 characters")
+    if (email.length < 6 || !email.includes("@"))
+      tempErrors.push("Enter a valid email address")
+    if (password.length < 5)
+      tempErrors.push("Enter a password of at least 5 characters")
+    if (password !== repeatPassword)
+      tempErrors.push("Passwords must match")
 
-    if (password === repeatPassword) {
+    if (!tempErrors) {
       const data = await dispatch(signUp(username, email, password));
       if (data.errors) {
         setErrors(data.errors);
       }
     }
     else {
-      setErrors(["Passwords must match"]);
+      setErrors(tempErrors);
+    }
+  };
+
+  const onDemoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login("demo@aa.io", "password"));
+    if (data.errors) {
+      setErrors(data.errors);
     }
   };
 
@@ -93,7 +110,7 @@ const SignUpForm = () => {
         </div>
         <div className="authForm__buttons-cntnr">
           <button className="formButton" type="submit">Sign Up</button>
-          <button className="formButton" >Demo</button>
+          <button onClick={onDemoLogin} className="formButton" >Demo</button>
         </div>
       </form>
     </div>

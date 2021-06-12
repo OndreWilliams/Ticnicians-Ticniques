@@ -13,9 +13,18 @@ const LoginForm = () => {
 
   const onLogin = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login(email, password));
-    if (data.errors) {
-      setErrors(data.errors);
+    const tempErrors = [];
+    if (email.length < 6 || !email.includes("@"))
+      tempErrors.push("Enter a valid email address")
+    if (password.length < 5)
+      tempErrors.push("Passwords must be at least 5 characters")
+    if (!tempErrors) {
+      const data = await dispatch(login(email, password));
+      if (data.errors) {
+        setErrors(data.errors);
+      }
+    } else {
+      setErrors(tempErrors);
     }
   };
 
@@ -40,7 +49,7 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="formPage">
+    <div  className="formPage">
       <form onSubmit={onLogin} className="authForm loginForm form">
         <div className="form__header">Login</div>
         <div className="form__errors-cntnr">

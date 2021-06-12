@@ -1,24 +1,33 @@
 .feed__container {
-  display: grid;
-  grid-template-columns: auto auto;
+  /* display: grid;
+  grid-template-columns: auto auto; */
   justify-content: space-around;
   background-color: rgb(43, 53, 63);
-  height: 75vh;
-  padding: 50px 20px;
+  height: 80vh;
+  padding: 50px 20px 3px 20px;
 }
-
+.tp-cntnr {
+  width: 40vw;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgb(19, 22, 29);
+  border: 1px solid rgba(28, 116, 212, .5);
+}
 .feed__tradeplans {
   display: grid;
   grid-template-rows: auto;
   background: rgb(19, 22, 29);
-  border: 1px solid rgba(28, 116, 212, .5);
+  height: 95%;
   padding: 20px;
   padding-top: 0px;
   overflow: scroll;
-  width: 40vw;
+  margin:auto;
   box-sizing: border-box;
   align-content: start;
+
 }
+
 
 .feed__title {
   text-align: center;
@@ -48,7 +57,7 @@
   width: auto;
   margin-bottom: 10px;
   padding: 10px;
-  max-height: 240px;
+  /* max-height: 240px; */
 }
 
 
@@ -63,7 +72,7 @@
 
 .feed__img {
   width: 100%;
-  height: 200px;
+  height: auto;
 }
 
 .tradeplan__chart-buttons-cntnr {

@@ -68,14 +68,26 @@ const TradeplanDetail = () => {
 
   const onEditTradeplan = async (e) => {
     e.preventDefault();
-    const data = await dispatch(editTradeplan(planId, instrumentId, title, imageUrl, description, makePublic));
-    await dispatch(getSelf());
-    if (data.errors) {
-      setErrors(data.errors);
+    const tempErrors = [];
+    if (instrumentId < 1)
+      tempErrors.push("Select an instrument")
+    if (title.length < 5)
+      tempErrors.push("Enter a title of at least 5 characters")
+    if (!imageUrl.startsWith("https://www.tradingview.com"))
+      tempErrors.push("Use the camera icon on top right of chart to get image")
+    if (description.length < 5)
+      tempErrors.push("Enter a description of at least 5 characters")
+    if (!tempErrors) {
+      const data = await dispatch(editTradeplan(planId, instrumentId, title, imageUrl, description, makePublic));
+      await dispatch(getSelf());
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        history.push(`/users/${user.id}`)
+      }
     } else {
-      history.push(`/users/${user.id}`)
+      setErrors(tempErrors);
     }
-
   };
 
   const updateNewChart = (chartClass, imgClass) => {
@@ -101,7 +113,10 @@ const TradeplanDetail = () => {
             className="publishing_input toggle__input"
             name="public"
             type="checkbox"
-            onChange={() => updateNewChart(".toggle-chart", ".toggle-image")}
+            onChange={() => {
+              updateNewChart(".toggle-chart", ".toggle-image");
+              setImageUrl("");
+            }}
             checked={newChart}
           >
           </input>
@@ -132,7 +147,16 @@ const TradeplanDetail = () => {
               ))}
             </div>
             <div className="formField">
-              <select className="tradeplanning__form--select" value={instrumentId} onChange={updateInstrumentId} >
+              <select
+                className="tradeplanning__form--select"
+                value={instrumentId}
+                onChange={(e) => {
+                  updateInstrumentId(e);
+                  if(!newChart)
+                    updateNewChart(".toggle-chart", ".toggle-image");
+                    setImageUrl("");
+                }}
+              >
                 <option disabled={true} value={0}>Select an Instrument</option>
                 <option value={1}>USD/JPY</option>
                 <option value={2}>USD/CHF</option>

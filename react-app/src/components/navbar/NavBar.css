@@ -76,3 +76,11 @@
   color: rgb(173, 175, 190);
   font-size: 20px;
 }
+
+.nav__signup {
+  grid-column-start: 5;
+}
+
+.nav__login {
+  grid-column-start: 4;
+}

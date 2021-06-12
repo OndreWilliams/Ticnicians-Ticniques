@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, useHistory } from 'react-router-dom';
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import { useDispatch, useSelector } from "react-redux";
-import { createNewComment, getAllComments } from "../../store/comments";
+import { createNewComment, getAllComments, editComment, deleteAComment } from "../../store/comments";
 import "./MarketWatch.css";
 
 const MarketWatch = () => {
   const [errors, setErrors] = useState([]);
   const [comment, setComment] = useState("");
+  const [commentEdit, setCommentEdit] = useState("");
+  const [editing, setEditing] = useState(false);
   const instrumentId = 1;
   const dollarBase = ["USDJPY", "USDCAD","EURUSD", "GBPUSD", "AUDUSD", "NZDUSD"];
 
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  const compare = (a, b) => {
+    const idA = a.id;
+    const idB = b.id;
+
+    if (idA > idB) {
+      return 1;
+    } else {
+      return -1;
+    }
+  }
+
   const user = useSelector(state => state.session.user);
-  const comments = useSelector(state => state.comments.list);
+  const comments = useSelector(state => state.comments.list.sort(compare));
 
   useEffect(() => {
     dispatch(getAllComments());
@@ -33,6 +45,45 @@ const MarketWatch = () => {
     setComment(e.target.value);
   };
 
+  const updateCommentEdit = (e) => {
+    setCommentEdit(e.target.value);
+  };
+
+  const onEditButtonClick = (e, currVal, buttonsClass, messageClass, formClass) => {
+    e.preventDefault();
+
+    if(currVal)
+      setCommentEdit(currVal);
+    let divButtons = document.querySelector(buttonsClass);
+    let divMessage = document.querySelector(messageClass);
+    let divForm = document.querySelector(formClass);
+
+    if(!editing){
+      divButtons.style.display = "none";
+      divMessage.style.display = "none";
+      divForm.style.display = "block";
+    } else {
+      divButtons.style.display = "grid";
+      divMessage.style.display = "block";
+      divForm.style.display = "none";
+    }
+    setEditing(!editing);
+  }
+
+  const onEditComment = (e, id, currVal, buttonsClass, messageClass, formClass) => {
+    e.preventDefault();
+    const data = dispatch(editComment( id, instrumentId, commentEdit));
+    if (data.errors) {
+      setErrors(data.errors);
+    } else {
+      onEditButtonClick(e, currVal, buttonsClass, messageClass, formClass);
+    }
+  }
+
+  const onDeleteComment =  (id) => {
+    dispatch(deleteAComment(id));
+  };
+
   return (
     <div className="market-watch">
       <div className="market-watch__cntnr">
@@ -40,7 +91,7 @@ const MarketWatch = () => {
         <div className="dollar-base">
           {dollarBase.map((symbol) => {
             return (
-              <div className="marketwatch__chart">
+              <div key={symbol} className="marketwatch__chart">
                 <TradingViewWidget
                   symbol={symbol}
                   interval="1"
@@ -65,19 +116,55 @@ const MarketWatch = () => {
           <div className="market-watch__comments">
           {comments && comments.map((comment) => {
             return (
-              <div className="comment-card"> {comment.comment}
+              <div key={comment.comment + comment.id} className="comment-card">
+                <div className="comment-username">{comment.poster_username}</div>
+                <span className={`comment-text${comment.id}`}>{comment.comment}</span>
                 {user.id === comment.poster_id && [user.id].map((userId) => {
                   return (
-                    <div className="comment__buttons">
-                      <button className="edit-comment"> Edit
+                    <div key={comment.comment + "ljk" + user.id} className={`comment__buttons${comment.id} comment__buttons`}>
+                      <button
+                        onClick={(e) => onEditButtonClick(e, comment.comment, `.comment__buttons${comment.id}`, `.comment-text${comment.id}`, `.edit-comment${comment.id}`)}
+                        className={`edit-comment__button`}
+                      > Edit
 
                       </button>
-                      <button className="delete-comment"> Delete
+                      <button onClick={(e) => onDeleteComment(comment.id)} className="delete-comment"> Delete
 
                       </button>
                     </div>
                   )
                 })}
+                <div className={`edit-comment${comment.id} edit__form`}>
+                  <form onSubmit={(e) => onEditComment(e, comment.id, "", `.comment__buttons${comment.id}`,
+                            `.comment-text${comment.id}`, `.edit-comment${comment.id}`)} method="PUT" className="comment__form">
+                    <div className="market-watch__formField">
+                      <textarea
+                        className="edit-textarea"
+                        name="comment"
+                        placeholder=""
+                        value={commentEdit}
+                        onChange={updateCommentEdit}
+                        cols="30"
+                        rows="4"
+                      >
+                      </textarea>
+                      <div className="edit-form__buttons">
+                        <button
+                          onClick={(e) => onEditButtonClick(e, "", `.comment__buttons${comment.id}`,
+                            `.comment-text${comment.id}`, `.edit-comment${comment.id}`)}
+                          className="edit-form-buttons comment-form__submit"
+                        > Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          className="edit-form-buttons comment-form__submit"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
             )
           })}
@@ -104,7 +191,7 @@ const MarketWatch = () => {
                   </button>
                 </div>
 
-            </div>
+              </div>
             </form>
           </div>
       </div>

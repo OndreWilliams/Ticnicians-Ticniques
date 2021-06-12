@@ -44,16 +44,28 @@ const TradePlanning = () => {
   }
 
   const onSaveTradeplan = async (e) => {
+
     e.preventDefault();
-    const data = await dispatch(createTradeplan(instrumentId, title, imageUrl, description, makePublic));
-    await dispatch(getSelf());
-    if (data.errors) {
-      setErrors(data.errors);
+    const tempErrors = [];
+    if (instrumentId < 1)
+      tempErrors.push("Select an instrument")
+    if (title.length < 5)
+      tempErrors.push("Enter a title of at least 5 characters")
+    if (!imageUrl.startsWith("https://www.tradingview.com"))
+      tempErrors.push("Use the camera icon on top right of chart to get image")
+    if (description.length < 5)
+      tempErrors.push("Enter a description of at least 5 characters")
+    if (!tempErrors) {
+      const data = await dispatch(createTradeplan(instrumentId, title, imageUrl, description, makePublic));
+      await dispatch(getSelf());
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        history.push(`/users/${user.id}`)
+      }
     } else {
-
-      history.push(`/users/${user.id}`)
+      setErrors(tempErrors);
     }
-
   };
 
   return (

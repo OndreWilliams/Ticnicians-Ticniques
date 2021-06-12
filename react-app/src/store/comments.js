@@ -1,6 +1,7 @@
 const CREATE_COMMENT = "comments/CREATE_COMMENT";
 const DELETE_COMMENT = "comments/DELETE_COMMENT";
 const LOAD = 'comments/LOAD';
+const EDIT_COMMENT = "comments/EDIT_COMMENT";
 
 const load = list => ({
   type: LOAD,
@@ -16,6 +17,11 @@ const createComment = (comment, instrumentId) => ({
 const deleteComment = (id) => ({
   type: DELETE_COMMENT,
   id
+});
+
+const editStoreComment = (data) => ({
+  type: EDIT_COMMENT,
+  data
 });
 
 export const getAllComments = () => async (dispatch) => {
@@ -47,14 +53,15 @@ export const createNewComment = (comment, instrumentId) => async (dispatch) => {
   return {};
 };
 
-export const editComment = (id, comment) => async (dispatch) => {
+export const editComment = (id, instrumentId, comment) => async (dispatch) => {
   const response = await fetch(`/api/comments/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      comment
+      comment,
+      instrument_id: instrumentId
     })
   });
   const data = await response.json();
@@ -62,7 +69,7 @@ export const editComment = (id, comment) => async (dispatch) => {
       return data;
   }
 
-  dispatch(createComment(data))
+  dispatch(editStoreComment(data))
   return {};
 };
 
@@ -111,6 +118,15 @@ export default function commentsReducer(state=initialState, action) {
       return {
         ...newComments,
         list: [...state.list.filter(comment => comment.id !== action.id)]
+      }
+    case EDIT_COMMENT:
+      let newComments2 = { ...state };
+      newComments2[action.data.id] = action.data;
+      let newList = [...state.list].filter(comment => comment.id !== action.data.id);
+      newList.push(action.data)
+      return {
+        ...newComments2,
+        list: [...newList]
       }
     default:
       return state

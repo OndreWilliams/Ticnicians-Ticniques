@@ -1,6 +1,7 @@
 .market-watch {
   background-color: rgb(43, 53, 63);
-  padding: 50px 20px;
+  padding: 50px 10px;
+  height: 74vh;
 }
 
 .market-watch__cntnr {
@@ -24,7 +25,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr 1fr;
-  grid-gap: 10px;
+  grid-gap: 13px;
   justify-items: center;
   align-items: center;
 }
@@ -36,7 +37,7 @@
   background-color: rgb(19, 22, 29);
   color: rgb(173, 175, 190);
   width: 25vw;
-  height: 75vh;
+  height: 70vh;
   justify-self: center;
   align-self: center;
   padding: 7px;
@@ -48,6 +49,22 @@
   color:rgb(173, 175, 190);
 }
 
+.market-watch__comments {
+  /* display: grid;
+  grid-template-rows: auto; */
+  overflow: scroll;
+  /* scroll */
+}
+
+.market-watch__comments::-webkit-scrollbar {
+  display: none;
+}
+
+.market-watch__comments {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .comment__form {
   width: 100%;
 }
@@ -57,12 +74,27 @@
 }
 
 .comment__form--textarea {
+    background-color: rgb(19, 22, 29);
+    color: rgb(173, 175, 190);
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+
+}
+
+.edit-textarea {
   background-color: rgb(19, 22, 29);
   color: rgb(173, 175, 190);
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
   border-radius: 4px;
+  border: none;
+}
+
+.edit-textarea:focus {
+  outline: none !important;
 }
 
 .comment__form--textarea {
@@ -105,7 +137,7 @@
   justify-items: end;
 }
 
-.edit-comment {
+.edit-comment__button {
   display: block;
   width: 50px;
   background-color: rgb(29, 125, 228);
@@ -123,4 +155,24 @@
   border-radius: 4px;
   font-weight: bold;
   padding: 1px;
+}
+
+.edit-form__buttons{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+div.edit__form {
+  display: none;
+  border: none;
+  outline: none;
+}
+
+.comment-username {
+  margin-bottom: 3px;
+  color:rgb(33, 139, 252);
+}
+
+.edit-form-buttons {
+   width: 62%;
 }

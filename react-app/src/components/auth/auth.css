@@ -4,14 +4,19 @@
   margin-top: 0;
   margin-bottom: 0;
   background-color: rgb(112, 117, 122);
+  background-image: url(https://res.cloudinary.com/dpf7crjn5/image/upload/v1623481870/Ticnicians%20Ticniques/bgxxxxxxxxxxxxxxxx_f3qyhv.jpg);
   position: absolute;
+  display: block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .authForm {
   margin-top: 20vh;
   padding: 20px;
   width: 350px;
-  position: relative;
+  /* position: relative; */
 }
 
 .loginForm {

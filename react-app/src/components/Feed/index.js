@@ -33,7 +33,7 @@ const Feed = () => {
     setDisplayTradeplans(userTradeplans
       .sort(compare)
     );
-  }, [dispatch, user])
+  }, [user, userTradeplans])
 
   if (!user) {
     return <Redirect to="/login" />;
@@ -52,29 +52,35 @@ const Feed = () => {
 
   return (
     <div className="feed__container">
-      <div className="feed__tradeplans">
+      <div className="tp-cntnr">
         <div className="feed__title">Trade Book</div>
-        {displayTradeplans && displayTradeplans.map((tradeplan) => {
-          return (
-            <div className="feed__tradeplan-container">
-              <div className="tradeplan__title">{tradeplan.title}</div>
-              <div className="tradeplan__chart-buttons-cntnr">
-                <img src={tradeplan.image} alt="tradeplan chart" className="feed__img" />
-                <div className="tradeplan__buttons-cntnr">
-                  <button onClick={() => onViewEditTP(tradeplan.id)} className="tradeplan__button tradeplan__view">View/Edit
+        <div className="feed__tradeplans">
+          <div className="scroll">
+            {displayTradeplans && displayTradeplans.map((tradeplan) => {
+              return (
+                <div className="feed__tradeplan-container">
+                  <div className="tradeplan__title">{tradeplan.title}</div>
+                  <div className="tradeplan__chart-buttons-cntnr">
+                    <img src={tradeplan.image} alt="tradeplan chart" className="feed__img" />
+                    <div className="tradeplan__buttons-cntnr">
+                      <button onClick={() => onViewEditTP(tradeplan.id)} className="tradeplan__button tradeplan__view">View/Edit
 
-                  </button>
-                  <button onClick={(e) => onDeleteTP(tradeplan.id)} className="tradeplan__button tradeplan__delete">Delete
+                      </button>
+                      <button onClick={(e) => onDeleteTP(tradeplan.id)} className="tradeplan__button tradeplan__delete">Delete
 
-                  </button>
+                      </button>
+                    </div>
+                  </div>
+
                 </div>
-              </div>
+              )
+            })}
+          </div>
 
-            </div>
-          )
-        })}
-        <div className="feed__bottom-margin-fix"></div>
+          <div className="feed__bottom-margin-fix"></div>
+        </div>
       </div>
+
     </div>
   )
 }

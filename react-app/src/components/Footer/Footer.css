@@ -1,0 +1,32 @@
+.footerContainer {
+  background-color: rgb(19, 22, 29);
+  color: rgb(179, 179, 179);
+  height: 100px;
+  width: 100%;
+  position: absolute;
+
+}
+
+.proLinks {
+  padding: 20px;
+  /* margin: 20px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.about {
+  font-size: 20px;
+  margin-right: 20px;
+
+}
+
+.socialLinks {
+  font-family: 'Lucida Console', monospace;
+  outline: none;
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 20px;
+  color: rgb(179, 179, 179);
+}
