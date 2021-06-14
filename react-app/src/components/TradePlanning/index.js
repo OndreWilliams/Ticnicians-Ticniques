@@ -9,7 +9,7 @@ import "./TradePlanning.css";
 
 const TradePlanning = () => {
   const [errors, setErrors] = useState([]);
-  const [instrumentId, setInstrumentId] = useState(0);
+  const [instrumentId, setInstrumentId] = useState(4);
   const [title, setTitle] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
@@ -61,7 +61,7 @@ const TradePlanning = () => {
       tempErrors.push("Use the camera icon on top right of chart to get image")
     if (description.length < 5)
       tempErrors.push("Enter a description of at least 5 characters")
-    if (!tempErrors) {
+    if (tempErrors.length < 1) {
       const data = await dispatch(createTradeplan(instrumentId, title, imageUrl, description, makePublic));
       await dispatch(getSelf());
       if (data.errors) {

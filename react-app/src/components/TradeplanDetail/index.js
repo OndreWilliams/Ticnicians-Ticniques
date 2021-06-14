@@ -77,7 +77,7 @@ const TradeplanDetail = () => {
       tempErrors.push("Use the camera icon on top right of chart to get image")
     if (description.length < 5)
       tempErrors.push("Enter a description of at least 5 characters")
-    if (!tempErrors) {
+    if (tempErrors.length < 1) {
       const data = await dispatch(editTradeplan(planId, instrumentId, title, imageUrl, description, makePublic));
       await dispatch(getSelf());
       if (data.errors) {
@@ -108,20 +108,24 @@ const TradeplanDetail = () => {
   return (
     <div className="editTP__cntnr">
       <div className="editTP__toggle">
-        <label className="publishing_cntnr toggle__label" > New Chart
-          <input
-            className="publishing_input toggle__input"
-            name="public"
-            type="checkbox"
-            onChange={() => {
-              updateNewChart(".toggle-chart", ".toggle-image");
-              setImageUrl("");
-            }}
-            checked={newChart}
-          >
-          </input>
-          <span className="check toggle__check"></span>
-        </label>
+        {user.id === tradeplan.creator_id && [user.id].map((userId) => {
+          return (
+            <label className="publishing_cntnr toggle__label" > New Chart
+              <input
+                className="publishing_input toggle__input"
+                name="public"
+                type="checkbox"
+                onChange={() => {
+                  updateNewChart(".toggle-chart", ".toggle-image");
+                  setImageUrl("");
+                }}
+                checked={newChart}
+              >
+              </input>
+              <span className="check toggle__check"></span>
+            </label>
+          )
+      })}
         <div className="toggle__balance"></div>
       </div>
       <div className="tradeplanning__cntnr detail__cntnr">
@@ -227,12 +231,16 @@ const TradeplanDetail = () => {
                 </label>
               </div>
             </div>
-            <button
-              type="submit"
-              className="tradeplanning__form--submit"
-            >
-              Save
-            </button>
+            {user.id === tradeplan.creator_id && [user.id].map((userId) => {
+              return (
+                <button
+                  type="submit"
+                  className="tradeplanning__form--submit"
+                >
+                  Save
+                </button>
+              )
+            })}
           </form>
         </div>
       </div>
