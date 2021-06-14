@@ -17,6 +17,7 @@ class Comment(db.Model):
     return {
       "id": self.id,
       "poster_id": self.poster_id,
+      "poster_username": self.poster.username,
       "instrument_id": self.instrument_id,
       "comment": self.comment
     }

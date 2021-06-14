@@ -58,8 +58,9 @@ def modify_comment(id):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if current_user.is_authenticated:
+
         comment = Comment.query.get(id)
-        comment_creator = str(comment.creator_id)
+        comment_creator = str(comment.poster_id)
         form['poster_id'].data = comment_creator
         if current_user.get_id() == comment_creator:
             if form.validate_on_submit():

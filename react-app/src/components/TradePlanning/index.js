@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import { createTradeplan, getAllTradeplans } from "../../store/tradeplan";
+import chartSymbol from "../TradeplanDetail/chartSymbol";
 import { getSelf } from "../../store/session";
 import "./TradePlanning.css";
 
@@ -13,6 +14,7 @@ const TradePlanning = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
   const [makePublic, setMakePublic] = useState(true);
+  const [chartCode, setChartCode] = useState("EURUSD");
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -21,8 +23,12 @@ const TradePlanning = () => {
     dispatch(getAllTradeplans());
   }, [dispatch]);
 
+  useEffect(() => {
+    setChartCode(chartSymbol(instrumentId));
+  }, [instrumentId]);
+
   const updateInstrumentId = (e) => {
-    setInstrumentId(e.target.value);
+    setInstrumentId(Number(e.target.value));
   };
 
   const updateTitle = (e) => {
@@ -72,7 +78,7 @@ const TradePlanning = () => {
     <div className="tradeplanning__cntnr">
       <div className="tradeplanning__chart">
         <TradingViewWidget
-          symbol="EURUSD"
+          symbol={chartCode}
           interval="1"
           theme={Themes.DARK}
           autosize
@@ -90,7 +96,7 @@ const TradePlanning = () => {
           </div>
           <div className="formField">
             <select className="tradeplanning__form--select" value={instrumentId} onChange={updateInstrumentId} >
-              <option disabled={true} value={0}>Select an Instrument</option>
+              <option disabled={true}  >Select an Instrument</option>
               <option value={1}>USD/JPY</option>
               <option value={2}>USD/CHF</option>
               <option value={3}>USD/CAD</option>
