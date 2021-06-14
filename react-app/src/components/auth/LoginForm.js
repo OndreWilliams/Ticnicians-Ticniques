@@ -18,7 +18,7 @@ const LoginForm = () => {
       tempErrors.push("Enter a valid email address")
     if (password.length < 5)
       tempErrors.push("Passwords must be at least 5 characters")
-    if (!tempErrors) {
+    if (tempErrors.length < 1) {
       const data = await dispatch(login(email, password));
       if (data.errors) {
         setErrors(data.errors);
