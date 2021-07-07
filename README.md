@@ -1,9 +1,9 @@
-# Flask React Project
+# Ticnician's Ticniques
+*Developed By Ondre Williams - [See the app](http://ticnicians-ticniques.herokuapp.com/)*
 
-This is the backend for the Flask React project.
 
-## Getting started
-
+## The Tech
+![Market-watch in action](/readme-resources/main-demo.mkv)
 1. Clone this repository (only this branch)
 
    ```bash
