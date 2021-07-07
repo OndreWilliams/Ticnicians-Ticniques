@@ -51,6 +51,8 @@ const MarketWatch = () => {
     document.querySelector(".comment__form--textarea").value = "";
     if (data.errors) {
       setErrors(data.errors);
+    } else {
+      setComment("");
     }
   };
 
