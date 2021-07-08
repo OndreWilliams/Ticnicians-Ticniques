@@ -3,7 +3,10 @@
 
 
 ## The Tech
-![Market-watch in action](/readme-resources/main-demo.mp4)
+![Market-watch in action](/readme-resources/tt-demo-main.gif)
+
+![Tradeplans in action](/readme-resources/tt-demo-tradeplan.gif)
+
 1. Clone this repository (only this branch)
 
    ```bash
