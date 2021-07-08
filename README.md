@@ -3,7 +3,7 @@
 
 
 ## The Tech
-![Market-watch in action](/readme-resources/main-demo.mkv)
+![Market-watch in action](/readme-resources/main-demo.mp4)
 1. Clone this repository (only this branch)
 
    ```bash
