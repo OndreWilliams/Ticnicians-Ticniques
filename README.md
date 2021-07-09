@@ -72,6 +72,6 @@ const onEditButtonClick = (e, currVal, buttonsClass, messageClass, formClass) =>
 ## Wrapping up
 Ticnician's Ticniques is an app made for traders, by a trader. There were many features considered in the planning of this app. Ultimately, a decision was made to provide the features which I believed would make the greatest impact on users' consistency to begin with, and to build outward from there.
 
-It has been incredibly rewarding to build this app, as I'm always learning and improving during the development of new sofware, and the technologies used continually inspired me with more ideas for future versions. All improvements to Ticnician's Ticniques will be documented here for any who'd like to follow the state of the app.
+It has been incredibly rewarding to build this app, as I'm always learning and improving during the development of new sofware, and the technologies used continually inspired me with more ideas for future versions. All improvements to Ticnician's Ticniques will be documented here for any who'd like to follow the state of the project.
 
 Thanks for checking out the app!
