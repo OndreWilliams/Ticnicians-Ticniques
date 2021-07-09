@@ -145,18 +145,28 @@ const MarketWatch = () => {
                         <button
                           onClick={(e) => onEditButtonClick(e, comment.comment, `.comment__buttons${comment.id}`, `.comment-text${comment.id}`, `.edit-comment${comment.id}`)}
                           className={`edit-comment__button`}
-                        > Edit
-
+                        >
+                          Edit
                         </button>
-                        <button onClick={(e) => onDeleteComment(comment.id)} className="delete-comment"> Delete
-
+                        <button onClick={(e) => onDeleteComment(comment.id)} className="delete-comment">
+                          Delete
                         </button>
                       </div>
                     )
                   })}
                   <div className={`edit-comment${comment.id} edit__form`}>
-                    <form onSubmit={(e) => onEditComment(e, comment.id, "", `.comment__buttons${comment.id}`,
-                              `.comment-text${comment.id}`, `.edit-comment${comment.id}`)} method="PUT" className="comment__form">
+                    <form
+                      method="PUT"
+                      className="comment__form"
+                      onSubmit={(e) => onEditComment(
+                        e,
+                        comment.id,
+                        "",
+                        `.comment__buttons${comment.id}`,
+                        `.comment-text${comment.id}`,
+                        `.edit-comment${comment.id}`
+                      )}
+                    >
                       <div className="market-watch__formField">
                         <textarea
                           className="edit-textarea"
@@ -210,16 +220,13 @@ const MarketWatch = () => {
                       Post
                     </button>
                   </div>
-
                 </div>
               </form>
             </div>
           </div>
         </div>
-
       </div>
       <div className="feed__container">
-
         <div className="tp-cntnr">
           <div className="feed__title">Community Trading Plans</div>
           <div className="feed__tradeplans">
@@ -231,7 +238,8 @@ const MarketWatch = () => {
                     <div className="tradeplan__chart-buttons-cntnr">
                       <img src={tradeplan.image} alt="tradeplan chart" className="feed__img" />
                       <div className="tradeplan__buttons-cntnr">
-                        <button onClick={() => onViewEditTP(tradeplan.id)} className="tradeplan__button tradeplan__view">View
+                        <button onClick={() => onViewEditTP(tradeplan.id)} className="tradeplan__button tradeplan__view">
+                          View
                         </button>
                       </div>
                     </div>
