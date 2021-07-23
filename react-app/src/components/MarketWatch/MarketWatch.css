@@ -20,7 +20,10 @@
 
 .marketwatch__chart {
   border: 1px solid rgba(28, 116, 212, .5);
+  height: 35vh;
+  width: 23vw;
 }
+
 .dollar-base {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -36,11 +39,13 @@
   border: 1px solid rgba(28, 116, 212, .5);
   background-color: rgb(19, 22, 29);
   color: rgb(173, 175, 190);
-  width: 25vw;
+  max-width: 25vw;
+  width: auto;
   height: 70vh;
   justify-self: center;
   align-self: center;
   padding: 7px;
+  margin-left: 13px;
 }
 
 .market-watch__chat--title {
@@ -132,6 +137,7 @@
 
 .comment__buttons {
   display: grid;
+  grid-gap: 5px;
   grid-template-rows: 1fr;
   grid-template-columns: 6fr 1fr;
   justify-items: end;

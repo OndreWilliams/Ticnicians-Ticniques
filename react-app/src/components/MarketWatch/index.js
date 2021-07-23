@@ -15,7 +15,7 @@ const MarketWatch = () => {
   const [editing, setEditing] = useState(false);
   const [displayTradeplans, setDisplayTradeplans] = useState(communityTradeplans);
   const instrumentId = 1;
-  const dollarBase = ["USDJPY", "USDCAD","EURUSD", "GBPUSD", "AUDUSD", "NZDUSD"];
+  const dollarBase = ["USDJPY", "USDCAD", "EURUSD", "GBPUSD", "AUDUSD", "NZDUSD"];
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -67,13 +67,13 @@ const MarketWatch = () => {
   const onEditButtonClick = (e, currVal, buttonsClass, messageClass, formClass) => {
     e.preventDefault();
 
-    if(currVal)
+    if (currVal)
       setCommentEdit(currVal);
     let divButtons = document.querySelector(buttonsClass);
     let divMessage = document.querySelector(messageClass);
     let divForm = document.querySelector(formClass);
 
-    if(!editing){
+    if (!editing) {
       divButtons.style.display = "none";
       divMessage.style.display = "none";
       divForm.style.display = "block";
@@ -87,7 +87,7 @@ const MarketWatch = () => {
 
   const onEditComment = (e, id, currVal, buttonsClass, messageClass, formClass) => {
     e.preventDefault();
-    const data = dispatch(editComment( id, instrumentId, commentEdit));
+    const data = dispatch(editComment(id, instrumentId, commentEdit));
     if (data.errors) {
       setErrors(data.errors);
     } else {
@@ -95,7 +95,7 @@ const MarketWatch = () => {
     }
   }
 
-  const onDeleteComment =  (id) => {
+  const onDeleteComment = (id) => {
     dispatch(deleteAComment(id));
   };
 
@@ -108,96 +108,95 @@ const MarketWatch = () => {
       <div className="market-watch">
         <div className="market-watch__cntnr">
           <div className="market-watch__charts">
-          <div className="dollar-base">
-            {dollarBase.map((symbol) => {
-              return (
-                <div key={symbol} className="marketwatch__chart">
-                  <TradingViewWidget
-                    symbol={symbol}
-                    interval="1"
-                    theme={Themes.DARK}
-                    save_image={false}
-                    hide_legend={true}
-                    hide_side_toolbar={true}
-                    allow_symbol_change={true}
-                    width={450}
-                    height={350}
-                    symbol_name_label={true}
-                  />
-                </div>
-              )
-            })}
+            <div className="dollar-base">
+              {dollarBase.map((symbol) => {
+                return (
+                  <div key={symbol} className="marketwatch__chart">
+                    <TradingViewWidget
+                      symbol={symbol}
+                      interval="1"
+                      theme={Themes.DARK}
+                      save_image={false}
+                      hide_legend={true}
+                      hide_side_toolbar={true}
+                      allow_symbol_change={true}
+                      autosize
+                      symbol_name_label={true}
+                    />
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </div>
-        <div className="market-watch__chat">
-          <div className="market-watch__chat--title">
-            Word on the Street
-          </div>
-          <div className="market-watch__comments">
-            {comments && comments.map((comment) => {
-              return (
-                <div key={comment.comment + comment.id} className="comment-card">
-                  <div className="comment-username">{comment.poster_username}</div>
-                  <span className={`comment-text${comment.id}`}>{comment.comment}</span>
-                  {user.id === comment.poster_id && [user.id].map((userId) => {
-                    return (
-                      <div key={comment.comment + "ljk" + user.id} className={`comment__buttons${comment.id} comment__buttons`}>
-                        <button
-                          onClick={(e) => onEditButtonClick(e, comment.comment, `.comment__buttons${comment.id}`, `.comment-text${comment.id}`, `.edit-comment${comment.id}`)}
-                          className={`edit-comment__button`}
-                        >
-                          Edit
-                        </button>
-                        <button onClick={(e) => onDeleteComment(comment.id)} className="delete-comment">
-                          Delete
-                        </button>
-                      </div>
-                    )
-                  })}
-                  <div className={`edit-comment${comment.id} edit__form`}>
-                    <form
-                      method="PUT"
-                      className="comment__form"
-                      onSubmit={(e) => onEditComment(
-                        e,
-                        comment.id,
-                        "",
-                        `.comment__buttons${comment.id}`,
-                        `.comment-text${comment.id}`,
-                        `.edit-comment${comment.id}`
-                      )}
-                    >
-                      <div className="market-watch__formField">
-                        <textarea
-                          className="edit-textarea"
-                          name="comment"
-                          placeholder=""
-                          value={commentEdit}
-                          onChange={updateCommentEdit}
-                          cols="30"
-                          rows="4"
-                        >
-                        </textarea>
-                        <div className="edit-form__buttons">
+          <div className="market-watch__chat">
+            <div className="market-watch__chat--title">
+              Word on the Street
+            </div>
+            <div className="market-watch__comments">
+              {comments && comments.map((comment) => {
+                return (
+                  <div key={comment.comment + comment.id} className="comment-card">
+                    <div className="comment-username">{comment.poster_username}</div>
+                    <span className={`comment-text${comment.id}`}>{comment.comment}</span>
+                    {user.id === comment.poster_id && [user.id].map((userId) => {
+                      return (
+                        <div key={comment.comment + "ljk" + user.id} className={`comment__buttons${comment.id} comment__buttons`}>
                           <button
-                            onClick={(e) => onEditButtonClick(e, "", `.comment__buttons${comment.id}`,
-                              `.comment-text${comment.id}`, `.edit-comment${comment.id}`)}
-                            className="edit-form-buttons comment-form__submit"
-                          > Cancel
-                          </button>
-                          <button
-                            type="submit"
-                            className="edit-form-buttons comment-form__submit"
+                            onClick={(e) => onEditButtonClick(e, comment.comment, `.comment__buttons${comment.id}`, `.comment-text${comment.id}`, `.edit-comment${comment.id}`)}
+                            className={`edit-comment__button`}
                           >
-                            Save
+                            Edit
+                          </button>
+                          <button onClick={(e) => onDeleteComment(comment.id)} className="delete-comment">
+                            Delete
                           </button>
                         </div>
-                      </div>
-                    </form>
+                      )
+                    })}
+                    <div className={`edit-comment${comment.id} edit__form`}>
+                      <form
+                        method="PUT"
+                        className="comment__form"
+                        onSubmit={(e) => onEditComment(
+                          e,
+                          comment.id,
+                          "",
+                          `.comment__buttons${comment.id}`,
+                          `.comment-text${comment.id}`,
+                          `.edit-comment${comment.id}`
+                        )}
+                      >
+                        <div className="market-watch__formField">
+                          <textarea
+                            className="edit-textarea"
+                            name="comment"
+                            placeholder=""
+                            value={commentEdit}
+                            onChange={updateCommentEdit}
+                            cols="30"
+                            rows="4"
+                          >
+                          </textarea>
+                          <div className="edit-form__buttons">
+                            <button
+                              onClick={(e) => onEditButtonClick(e, "", `.comment__buttons${comment.id}`,
+                                `.comment-text${comment.id}`, `.edit-comment${comment.id}`)}
+                              className="edit-form-buttons comment-form__submit"
+                            > Cancel
+                            </button>
+                            <button
+                              type="submit"
+                              className="edit-form-buttons comment-form__submit"
+                            >
+                              Save
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
             </div>
             <div className="comment-form__cntnr">
               <form onSubmit={onSubmitComment} method="POST" className="comment__form">
